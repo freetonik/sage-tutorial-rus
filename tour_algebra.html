@@ -1,0 +1,555 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Базовая алгебра &mdash; Учебное пособие Sage v4.3.4</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '4.3.4',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Sage Tutorial v4.3.4" href="index.html" />
+    <link rel="up" title="A Guided Tour" href="tour.html" />
+    <link rel="next" title="Plotting" href="tour_plotting.html" />
+    <link rel="prev" title="Getting Help" href="tour_help.html" />
+    <link rel="icon" href="_static/sageicon.png" type="image/x-icon" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">содержание</a></li>
+        <li class="right" >
+          <a href="tour_plotting.html" title="Plotting"
+             accesskey="N">вперед</a> |</li>
+        <li class="right" >
+          <a href="tour_help.html" title="Getting Help"
+             accesskey="P">назад</a> |</li>
+  
+    
+      <a href="../index.html"><img src="_static/sagelogo.png" style="vertical-align: middle" title="Sage Logo"></a>
+    
+  
+  
+        <li><a href="index.html">Учебное пособие Sage v4.3.4</a> &raquo;</li>
+
+          <li><a href="tour.html" accesskey="U">Экскурсия</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="basic-algebra-and-calculus">
+<h1>Базовая алгебра<a class="headerlink" href="#basic-algebra-and-calculus" title="Permalink to this headline">¶</a></h1>
+<p>Sage может осуществлять вычисления такие, как поиск решений уравнений, дифференциация, интегрирование и преобразования Лапласа. 
+См. <a class="reference external" href="http://www.sagemath.org/doc/constructions/">Sage Constructions</a>
+, где содержатся примеры.</p>
+<div class="section" id="solving-equations">
+<h2>Решение уравнений<a class="headerlink" href="#solving-equations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="solving-equations-exactly">
+<h3>Точное решение уравнений<a class="headerlink" href="#solving-equations-exactly" title="Permalink to this headline">¶</a></h3>
+<p>Функция <tt class="docutils literal"><span class="pre">solve</span></tt> решает уравнения. Для ее использования 
+сначала нужно определить некоторые переменные; уравнение (или система уравнений) дает аргументы для <tt class="docutils literal"><span class="pre">solve</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">x</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mf">2</span> <span class="o">+</span> <span class="mf">3</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mf">2</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="go">[x == -2, x == -1]</span>
+</pre></div>
+</div>
+<p>Можно решать уравнения для одной переменной через другие:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x b c&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">solve</span><span class="p">([</span><span class="n">x</span><span class="o">^</span><span class="mf">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">c</span> <span class="o">==</span> <span class="mf">0</span><span class="p">],</span><span class="n">x</span><span class="p">)</span>
+<span class="go">[x == -1/2*b - 1/2*sqrt(b^2 - 4*c), x == -1/2*b + 1/2*sqrt(b^2 - 4*c)]</span>
+</pre></div>
+</div>
+<p>Также можно решать уравнения с несколькими переменными:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x, y&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">solve</span><span class="p">([</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">==</span><span class="mf">6</span><span class="p">,</span> <span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="o">==</span><span class="mf">4</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">[[x == 5, y == 1]]</span>
+</pre></div>
+</div>
+<p>Следующий пример показывает, как Sage решает систему нелинейных уравнений. Для начала система решается символьно:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">var</span><span class="p">(</span><span class="s">&#39;x y p q&#39;</span><span class="p">)</span>
+<span class="go">(x, y, p, q)</span>
+<span class="gp">sage: </span><span class="n">eq1</span> <span class="o">=</span> <span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="o">==</span><span class="mf">9</span>
+<span class="gp">sage: </span><span class="n">eq2</span> <span class="o">=</span> <span class="n">q</span><span class="o">*</span><span class="n">y</span><span class="o">+</span><span class="n">p</span><span class="o">*</span><span class="n">x</span><span class="o">==-</span><span class="mf">6</span>
+<span class="gp">sage: </span><span class="n">eq3</span> <span class="o">=</span> <span class="n">q</span><span class="o">*</span><span class="n">y</span><span class="o">^</span><span class="mf">2</span><span class="o">+</span><span class="n">p</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mf">2</span><span class="o">==</span><span class="mf">24</span>
+<span class="gp">sage: </span><span class="n">solve</span><span class="p">([</span><span class="n">eq1</span><span class="p">,</span><span class="n">eq2</span><span class="p">,</span><span class="n">eq3</span><span class="p">,</span><span class="n">p</span><span class="o">==</span><span class="mf">1</span><span class="p">],</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="go">[[p == 1, q == 8, x == -4/3*sqrt(10) - 2/3, y == 1/6*sqrt(2)*sqrt(5) - 2/3],</span>
+<span class="go"> [p == 1, q == 8, x == 4/3*sqrt(10) - 2/3, y == -1/6*sqrt(2)*sqrt(5) - 2/3]]</span>
+</pre></div>
+</div>
+<p>Для приближенных значений решения можно использовать:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">solns</span> <span class="o">=</span> <span class="n">solve</span><span class="p">([</span><span class="n">eq1</span><span class="p">,</span><span class="n">eq2</span><span class="p">,</span><span class="n">eq3</span><span class="p">,</span><span class="n">p</span><span class="o">==</span><span class="mf">1</span><span class="p">],</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">solution_dict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="p">[[</span><span class="n">s</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="mf">30</span><span class="p">),</span> <span class="n">s</span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="mf">30</span><span class="p">),</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="mf">30</span><span class="p">),</span> <span class="n">s</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="mf">30</span><span class="p">)]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">solns</span><span class="p">]</span>
+<span class="go">[[1.0000000, 8.0000000, -4.8830369, -0.13962039],</span>
+<span class="go"> [1.0000000, 8.0000000, 3.5497035, -1.1937129]]</span>
+</pre></div>
+</div>
+<p>(Функция <tt class="docutils literal"><span class="pre">n</span></tt> выведет приближенное значение. Аргументом для данной функции является 
+количество битов точности)</p>
+</div>
+<div class="section" id="solving-equations-numerically">
+<h3>Численное решение уравнений<a class="headerlink" href="#solving-equations-numerically" title="Permalink to this headline">¶</a></h3>
+<p>Во многих случаях функция <tt class="docutils literal"><span class="pre">solve</span></tt> не способна найти точное решение 
+уравнения. Вместо нее можно использовать функцию <tt class="docutils literal"><span class="pre">find_root</span></tt> для нахождения 
+численного решения. Например, solve не возвращает ничего существенного для следующего уравнения:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">theta</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;theta&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">solve</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">==</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">theta</span><span class="p">)</span>
+<span class="go">[sin(theta) == cos(theta)]</span>
+</pre></div>
+</div>
+<p>С другой стороны функция <tt class="docutils literal"><span class="pre">find_root</span></tt> может использоваться для решения вышеуказанного примера 
+в интервале <img class="math" src="_images/math/c6a79b9e29dbafe74b9185ab6203d101153ab1fe.png" alt="0 &lt; \phi &lt; \pi/2"/>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">phi</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;phi&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">find_root</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">==</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span><span class="mf">0</span><span class="p">,</span><span class="n">pi</span><span class="o">/</span><span class="mf">2</span><span class="p">)</span>
+<span class="go">0.785398163397448...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="differentiation-integration-etc">
+<h2>Дифференциирование, интегрирование и т.д.<a class="headerlink" href="#differentiation-integration-etc" title="Permalink to this headline">¶</a></h2>
+<p>Sage умеет дифференциировать и интегрировать многие функции. 
+Например, для того, чтобы дифференциировать <img class="math" src="_images/math/b9befd46b73779dd8ebb80bf8d360e00f5ccbfd6.png" alt="\sin(u)"/> для переменной 
+<img class="math" src="_images/math/9ad99798ec4c38e165cf517cb9e02b1c9e824103.png" alt="u"/>,
+требуется:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">u</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;u&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">diff</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">u</span><span class="p">)</span>
+<span class="go">cos(u)</span>
+</pre></div>
+</div>
+<p>Для подсчета четвертой производной функции <img class="math" src="_images/math/45eadd178b6696f856141fb38c83b93e70a3a3b4.png" alt="\sin(x^2)"/> надо:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">diff</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mf">2</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="mf">4</span><span class="p">)</span>
+<span class="go">16*x^4*sin(x^2) - 48*x^2*cos(x^2) - 12*sin(x^2)</span>
+</pre></div>
+</div>
+<p>Для решения частных производных, как, например, для функции <img class="math" src="_images/math/7dcbab386eed7d02e3f8779fb7bc88bb19cc8739.png" alt="x^2+17y^2"/> по <em>x</em> и <em>y</em> соответственно:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x,y&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">^</span><span class="mf">2</span> <span class="o">+</span> <span class="mf">17</span><span class="o">*</span><span class="n">y</span><span class="o">^</span><span class="mf">2</span>
+<span class="gp">sage: </span><span class="n">f</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">2*x</span>
+<span class="gp">sage: </span><span class="n">f</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">34*y</span>
+</pre></div>
+</div>
+<p>Теперь решим интегралы: и определенные, и неопределенные. Например, 
+<img class="math" src="_images/math/167bc571a78c52e72d0f8fa2f128efe7e04e6b5a.png" alt="\int x\sin(x^2)\, dx"/> и
+<img class="math" src="_images/math/dcf271a49679b2b55c035244cdcb042918344792.png" alt="\int_0^1 \frac{x}{x^2+1}\, dx"/></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">integral</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mf">2</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+<span class="go">-1/2*cos(x^2)</span>
+<span class="gp">sage: </span><span class="n">integral</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mf">2</span><span class="o">+</span><span class="mf">1</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span>
+<span class="go">1/2*log(2)</span>
+</pre></div>
+</div>
+<p>Для нахождения разложения на простые дроби для <img class="math" src="_images/math/56db0b6dcbaab5dd5efbb21eb5e3af85a983a4ed.png" alt="\frac{1}{x^2-1}"/> нужно сделать следующее:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="mf">1</span><span class="o">/</span><span class="p">((</span><span class="mf">1</span><span class="o">+</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">1</span><span class="p">))</span>
+<span class="gp">sage: </span><span class="n">f</span><span class="o">.</span><span class="n">partial_fraction</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">1/2/(x - 1) - 1/2/(x + 1)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="solving-differential-equations">
+<span id="section-systems"></span><h2>Решение дифференциальных уравнений<a class="headerlink" href="#solving-differential-equations" title="Permalink to this headline">¶</a></h2>
+<p>Sage может использоваться для решения дифференциальных уравнений. Для решения уравнения 
+<img class="math" src="_images/math/25be7e36adf734bb6842439a5b939d200a28f607.png" alt="x'+x-1=0"/> сделаем следующее:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">t</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">)</span>    <span class="c"># define a variable t</span>
+<span class="gp">sage: </span><span class="n">x</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>   <span class="c"># define x to be a function of that variable</span>
+<span class="gp">sage: </span><span class="n">DE</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">1</span>
+<span class="gp">sage: </span><span class="n">desolve</span><span class="p">(</span><span class="n">DE</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">])</span>
+<span class="go">(c + e^t)*e^(-t)</span>
+</pre></div>
+</div>
+<p>Для этого используется интерфейс Maxima <a class="reference external" href="bibliography.html#max">[Max]</a>, поэтому результат 
+может быть выведен в виде отличном от обычного вывода Sage. В данном случае общее решение для данного дифференциального уравнения - <img class="math" src="_images/math/a3cfc012fc4d265a88ea6eea3f5ebf099111f1df.png" alt="x(t) = e^{-t}(e^{t}+c)"/>.</p>
+<p>Преобразования Лапласа также могут быть вычислены. Преобразование Лапласа для 
+<img class="math" src="_images/math/51eb1988c74a1b0c1917c35f601e712727c3193a.png" alt="t^2e^t -\sin(t)"/> вычисляется следующим образом:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">s</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&quot;s&quot;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">t</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&quot;t&quot;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="n">t</span><span class="o">^</span><span class="mf">2</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">f</span><span class="o">.</span><span class="n">laplace</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="go">2/(s - 1)^3 - 1/(s^2 + 1)</span>
+</pre></div>
+</div>
+<p>Приведем более сложный пример. Отклонение от эквилибриума для пары пружин, прикрепленных к стене слева,</p>
+<div class="highlight-python"><pre>|------\/\/\/\/\---|mass1|----\/\/\/\/\/----|mass2|
+         spring1               spring2</pre>
+</div>
+<p>может быть представлено в виде дифференциальных уравнений второго порядка</p>
+<div class="math">
+<p><img src="_images/math/83481dc9a71b68e50d978a09314a1b28b52c552a.png" alt="m_1 x_1'' + (k_1+k_2) x_1 - k_2 x_2 = 0
+
+m_2 x_2''+ k_2 (x_2-x_1) = 0," /></p>
+</div><p>, где <img class="math" src="_images/math/208adf4a30ab30124fdb3c5c977d70ff04b678bd.png" alt="m_{i}"/> - это масса объекта <em>i</em>, <img class="math" src="_images/math/837682bc6103a4c6740c8273434e1a2c771a2514.png" alt="x_{i}"/> - это отклонение от эквилибриума массы 
+<em>i</em>, а <img class="math" src="_images/math/1454aaa4a0c2598b6347e956e2602b4a48008a81.png" alt="k_{i}"/>
+- это константа для пружины.<em>i</em>.</p>
+<p><strong>Пример:</strong> Используйте Sage для вышеуказанного примера с 
+<img class="math" src="_images/math/6e33cbc60799b3924847aed6813ebf63ed6adf6e.png" alt="m_{1}=2"/>, <img class="math" src="_images/math/795c0c7a82fd1e7a0a34fad0c965a5b5b2483e37.png" alt="m_{2}=1"/>, <img class="math" src="_images/math/4fdc136a037108ed49345169a235e202aad0a4f2.png" alt="k_{1}=4"/>,
+<img class="math" src="_images/math/379e5c95f28ac19da7594e56f7f0ba8d05be95a4.png" alt="k_{2}=2"/>, <img class="math" src="_images/math/e583803c6a2c6dfe4859706ad060cd98bc58cf7d.png" alt="x_{1}(0)=3"/>, <img class="math" src="_images/math/9fffeda9e9cda03380817557b51be465acc9a03b.png" alt="x_{1}'(0)=0"/>,
+<img class="math" src="_images/math/3b4bec76652ba4369cb2611fa0aef672e0ebf90d.png" alt="x_{2}(0)=3"/>, <img class="math" src="_images/math/b7e37403a952c780ffdd4989842980057a2121be.png" alt="x_{2}'(0)=0"/>.</p>
+<p>Решение: Надо найти преобразование Лапласа первого уравнения (с условием <img class="math" src="_images/math/bc4d7ddcc2a46e46eb1b3dd8b40f0d9c3a53904b.png" alt="x=x_{1}"/>, <img class="math" src="_images/math/89aecf2d7ae0b86f37cc1dc28f462ed2307ffb35.png" alt="y=x_{2}"/>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">de1</span> <span class="o">=</span> <span class="n">maxima</span><span class="p">(</span><span class="s">&quot;2*diff(x(t),t, 2) + 6*x(t) - 2*y(t)&quot;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">lde1</span> <span class="o">=</span> <span class="n">de1</span><span class="o">.</span><span class="n">laplace</span><span class="p">(</span><span class="s">&quot;t&quot;</span><span class="p">,</span><span class="s">&quot;s&quot;</span><span class="p">);</span> <span class="n">lde1</span>
+<span class="go">2*(-?%at(&#39;diff(x(t),t,1),t=0)+s^2*&#39;laplace(x(t),t,s)-x(0)*s)-2*&#39;laplace(y(t),t,s)+6*&#39;laplace(x(t),t,s)</span>
+</pre></div>
+</div>
+<p>Данный результат тяжело читаемый, однако должен быть рассмотрен, как</p>
+<div class="math">
+<p><img src="_images/math/a9833b8c5e40dda4b203198fd1fcbc52980990ec.png" alt="-2x'(0) + 2s^2*X(s) - 2sx(0) - 2Y(s) + 6X(s) = 0" /></p>
+</div><p>Найдем преобразование Лапласа для второго уравнения:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">de2</span> <span class="o">=</span> <span class="n">maxima</span><span class="p">(</span><span class="s">&quot;diff(y(t),t, 2) + 2*y(t) - 2*x(t)&quot;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">lde2</span> <span class="o">=</span> <span class="n">de2</span><span class="o">.</span><span class="n">laplace</span><span class="p">(</span><span class="s">&quot;t&quot;</span><span class="p">,</span><span class="s">&quot;s&quot;</span><span class="p">);</span> <span class="n">lde2</span>
+<span class="go">-?%at(&#39;diff(y(t),t,1),t=0)+s^2*&#39;laplace(y(t),t,s)+2*&#39;laplace(y(t),t,s)-2*&#39;laplace(x(t),t,s)-y(0)*s</span>
+</pre></div>
+</div>
+<p>Результат:</p>
+<div class="math">
+<p><img src="_images/math/d9621a176c46070718bf343f878e83b426683700.png" alt="-Y'(0) + s^2Y(s) + 2Y(s) - 2X(s) - sy(0) = 0." /></p>
+</div><p>Вставим начальные условия для <img class="math" src="_images/math/e5bb6706b88cfc6fb16bba567a9035819f352aea.png" alt="x(0)"/>, <img class="math" src="_images/math/f7a991e4e6106d20735af868206d81b3178cc8e4.png" alt="x'(0)"/>,
+<img class="math" src="_images/math/01ac2939f4cad9f93f55399e9160349590b8c63d.png" alt="y(0)"/> и <img class="math" src="_images/math/d7daab106da948dd26582276e407065c7e8a727b.png" alt="y'(0)"/>
+и решим уравения:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">var</span><span class="p">(</span><span class="s">&#39;s X Y&#39;</span><span class="p">)</span>
+<span class="go">(s, X, Y)</span>
+<span class="gp">sage: </span><span class="n">eqns</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">2</span><span class="o">*</span><span class="n">s</span><span class="o">^</span><span class="mf">2</span><span class="o">+</span><span class="mf">6</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="o">-</span><span class="mf">2</span><span class="o">*</span><span class="n">Y</span> <span class="o">==</span> <span class="mf">6</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="o">-</span><span class="mf">2</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span><span class="p">(</span><span class="n">s</span><span class="o">^</span><span class="mf">2</span><span class="o">+</span><span class="mf">2</span><span class="p">)</span><span class="o">*</span><span class="n">Y</span> <span class="o">==</span> <span class="mf">3</span><span class="o">*</span><span class="n">s</span><span class="p">]</span>
+<span class="gp">sage: </span><span class="n">solve</span><span class="p">(</span><span class="n">eqns</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+<span class="go">[[X == 3*(s^3 + 3*s)/(s^4 + 5*s^2 + 4),</span>
+<span class="go">  Y == 3*(s^3 + 5*s)/(s^4 + 5*s^2 + 4)]]</span>
+</pre></div>
+</div>
+<p>Теперь найдем инверсию преобразования Лапласа для нахождения ответа:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">var</span><span class="p">(</span><span class="s">&#39;s t&#39;</span><span class="p">)</span>
+<span class="go">(s, t)</span>
+<span class="gp">sage: </span><span class="n">inverse_laplace</span><span class="p">((</span><span class="mf">3</span><span class="o">*</span><span class="n">s</span><span class="o">^</span><span class="mf">3</span> <span class="o">+</span> <span class="mf">9</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">s</span><span class="o">^</span><span class="mf">4</span> <span class="o">+</span> <span class="mf">5</span><span class="o">*</span><span class="n">s</span><span class="o">^</span><span class="mf">2</span> <span class="o">+</span> <span class="mf">4</span><span class="p">),</span><span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="go">cos(2*t) + 2*cos(t)</span>
+<span class="gp">sage: </span><span class="n">inverse_laplace</span><span class="p">((</span><span class="mf">3</span><span class="o">*</span><span class="n">s</span><span class="o">^</span><span class="mf">3</span> <span class="o">+</span> <span class="mf">15</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">s</span><span class="o">^</span><span class="mf">4</span> <span class="o">+</span> <span class="mf">5</span><span class="o">*</span><span class="n">s</span><span class="o">^</span><span class="mf">2</span> <span class="o">+</span> <span class="mf">4</span><span class="p">),</span><span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="go">-cos(2*t) + 4*cos(t)</span>
+</pre></div>
+</div>
+<p>Итак, ответ:</p>
+<div class="math">
+<p><img src="_images/math/1bb3918ba2337596d436bb1b05a48b8cbc676699.png" alt="x_1(t) = \cos(2t) + 2\cos(t), \quad x_2(t) = 4\cos(t) - \cos(2t)." /></p>
+</div><p>График для ответа может быть построен параметрически, используя </p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">t</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">P</span> <span class="o">=</span> <span class="n">parametric_plot</span><span class="p">((</span><span class="n">cos</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">2</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="mf">4</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">cos</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">),</span>\
+<span class="gp">... </span>  <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="o">*</span><span class="n">pi</span><span class="p">),</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="mf">0.9</span><span class="p">))</span>
+<span class="gp">sage: </span><span class="n">show</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Графики могут быть построены и для отдельных компонентов: </p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">t</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">p1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">2</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="o">*</span><span class="n">pi</span><span class="p">),</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="mf">0.3</span><span class="p">))</span>
+<span class="gp">sage: </span><span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="mf">4</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">cos</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="o">*</span><span class="n">pi</span><span class="p">),</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="mf">0.6</span><span class="p">))</span>
+<span class="gp">sage: </span><span class="n">show</span><span class="p">(</span><span class="n">p1</span> <span class="o">+</span> <span class="n">p2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Для более исчерпывающей информации по графикам см. <a class="reference external" href="tour_plotting.html#section-plot"><em>Plotting</em></a>. 
+Также см. секцию 5.5 из <a class="reference external" href="bibliography.html#nagleetal2004">[NagleEtAl2004]</a> для углубленной информации по дифференциальным уравнениям.</p>
+</div>
+<div class="section" id="euler-s-method-for-systems-of-differential-equations">
+<h2>Метод Эйлера для решения систем дифференциальных уравнений<a class="headerlink" href="#euler-s-method-for-systems-of-differential-equations" title="Permalink to this headline">¶</a></h2>
+<p>В следующем примере показан метод Эйлера для дифференциальных уравнений первого и второго порядков. Сначала вспомним, что делается для 
+уравнений первого порядка. Имея исходные данные формы</p>
+<div class="math">
+<p><img src="_images/math/d99065f5b24c0bca0769755e545be7d0c0342807.png" alt="y'=f(x,y), \quad y(a)=c," /></p>
+</div><p>требуется найти приблизительное значение решения при
+<img class="math" src="_images/math/741720281e465fc7461c32d504f6d54c5bcaff7c.png" alt="x=b"/> и <img class="math" src="_images/math/9dfc685c058a3923bc44dc7a591ea65066c69dea.png" alt="b&gt;a"/>.</p>
+<p>Из определения производной следует, что</p>
+<div class="math">
+<p><img src="_images/math/4c3d51f862c5b4722b3f56f781d580fceca34962.png" alt="y'(x) \approx \frac{y(x+h)-y(x)}{h}," /></p>
+</div><p>где <img class="math" src="_images/math/cf642186044923923da160295ed941ca3913bdc9.png" alt="h&gt;0"/> дано и является небольшим. 
+Это и дифференциальное уравнение дают <img class="math" src="_images/math/6dd98b7239807db419e17297e3d7343af3ca49bc.png" alt="f(x,y(x))\approx
+\frac{y(x+h)-y(x)}{h}"/>. Теперь надо решить для <img class="math" src="_images/math/a7abfafe6fcb64a1ca71e13588686138a5c2063c.png" alt="y(x+h)"/>:</p>
+<div class="math">
+<p><img src="_images/math/a027657c3adecdce99a39c50758549b2ad479e87.png" alt="y(x+h) \approx y(x) + h*f(x,y(x))." /></p>
+</div><p>Если назвать <img class="math" src="_images/math/5ddee8f844692263c126e84f38ae68a6c377d438.png" alt="h f(x,y(x))"/> &#8220;поправочным элементом&#8221;
+ <img class="math" src="_images/math/cb3e3aafaf565634f3a17951361f66b1ca3609f8.png" alt="y(x)"/> &#8220;прежним значением <em>y</em>&#8220; и 
+<img class="math" src="_images/math/a7abfafe6fcb64a1ca71e13588686138a5c2063c.png" alt="y(x+h)"/> &#8220;новым значением <em>y</em>&#8220;, тогда 
+данное приближение может быть выражено в виде</p>
+<div class="math">
+<p><img src="_images/math/bf2c699808a8262c427559729fced42b399107c7.png" alt="y_{new} \approx y_{old} + h*f(x,y_{old})." /></p>
+</div><p>Если разбить интервал между <em>a</em> и <em>b</em> на <em>n</em> частей, чтобы <img class="math" src="_images/math/9273301200c5d1726d7e93cbe54466f97da41c23.png" alt="h=\frac{b-a}{n}"/>, 
+тогда можно записать информацию для данного метода в таблицу.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="38%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/></th>
+<th class="head"><img class="math" src="_images/math/092e364e1d9d19ad5fffb0b46ef4cc7f2da02c1c.png" alt="y"/></th>
+<th class="head"><img class="math" src="_images/math/0be4eb703359938267bdf5eea95c5a9a30ae55fd.png" alt="hf(x,y)"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><img class="math" src="_images/math/c7d457e388298246adb06c587bccd419ea67f7e8.png" alt="a"/></td>
+<td><img class="math" src="_images/math/3372c1cb6d68cf97c2d231acc0b47b95a9ed04cc.png" alt="c"/></td>
+<td><img class="math" src="_images/math/3255e5b0e54add5cdbb3cbaeb7621a2b3eaa08f4.png" alt="hf(a,c)"/></td>
+</tr>
+<tr><td><img class="math" src="_images/math/ec2ac3b93c1551b226a92d7446fd4316867f921b.png" alt="a+h"/></td>
+<td><img class="math" src="_images/math/a5a50ff6d878f6aeefa692148da54fd130d53499.png" alt="c+hf(a,c)"/></td>
+<td>...</td>
+</tr>
+<tr><td><img class="math" src="_images/math/f05dfd98d9b87e69664af5163b3db84a74f0ebe0.png" alt="a+2h"/></td>
+<td>...</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>...</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><img class="math" src="_images/math/6388cfe10e40da59c162bb8e8b2d0ef8fc0aa0eb.png" alt="b=a+nh"/></td>
+<td>???</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p>Целью является заполнить все пустоты в таблице по одному ряду за раз до момента достижения записи ???, которая и является 
+приближенным значением метода Эйлера для <img class="math" src="_images/math/a24c1e0e6ecb689cd88190f1d105ab152a8f9678.png" alt="y(b)"/>.</p>
+<p>Решение систем дифференциальных уравнений похоже на решение обычных дифференциальных уравнений.</p>
+<p><strong>Пример:</strong> Найдите численное приблизительное значение для <img class="math" src="_images/math/b00fc10753d7366a6919ed110df236f9a0b54f64.png" alt="z(t)"/> при <img class="math" src="_images/math/cd2a4ec9cf64d68580d5ef68252432965551b464.png" alt="t=1"/>, 
+используя 4 шага метода Эйлера, где <img class="math" src="_images/math/ce8e38a626c6dcf91f26042fb890f0fca3b279e3.png" alt="z''+tz'+z=0"/>,
+<img class="math" src="_images/math/2773e8273fd0f24fe85b50582d29ac82a2083c53.png" alt="z(0)=1"/>, <img class="math" src="_images/math/85c06cfe017de6c6e833a815d1bb25564b23fe72.png" alt="z'(0)=0"/>.</p>
+<p>Требуется привести дифференциальное уравнение 2го порядка к системе двух дифференцальных уравнений первого порядка 
+(используя <img class="math" src="_images/math/b0b4a78db8f086f7169b9a0cc443e0b9ee0224ab.png" alt="x=z"/>, <img class="math" src="_images/math/a17d87db8b70fbd108e8f8875c107803be2e0620.png" alt="y=z'"/>) 
+и применить метод Эйлера:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">RealField</span><span class="p">(</span><span class="mf">10</span><span class="p">),</span><span class="mf">3</span><span class="p">,</span><span class="s">&quot;txy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">gens</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span> <span class="n">g</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">t</span>
+<span class="gp">sage: </span><span class="n">eulers_method_2x2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="o">/</span><span class="mf">4</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span>
+<span class="go">      t                x            h*f(t,x,y)                y       h*g(t,x,y)</span>
+<span class="go">      0                1                  0.00                0           -0.25</span>
+<span class="go">    1/4              1.0                -0.062            -0.25           -0.23</span>
+<span class="go">    1/2             0.94                 -0.12            -0.48           -0.17</span>
+<span class="go">    3/4             0.82                 -0.16            -0.66          -0.081</span>
+<span class="go">      1             0.65                 -0.18            -0.74           0.022</span>
+</pre></div>
+</div>
+<p>Итак, <img class="math" src="_images/math/eebe1416bf2c3ef4d68372964c71489b9b80d22a.png" alt="z(1)\approx 0.75"/>.</p>
+<p>Можно построить график для точек <img class="math" src="_images/math/e53b1fe25be1c679117fb44a6a886fe1247d189a.png" alt="(x,y)"/>, 
+чтобы получить приблизительный вид кривой. Функция <tt class="docutils literal"><span class="pre">eulers_method_2x2_plot</span></tt> выполнит данную задачу; 
+для этого надо определить функции <em>f</em> и 
+<em>g</em>, аргумент которых имеет три координаты: (<em>t</em>, <em>x</em>,
+<em>y</em>).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">z</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span>        <span class="c"># f(t,x,y) = y</span>
+<span class="gp">sage: </span><span class="n">g</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span>  <span class="c"># g(t,x,y) = -sin(x)</span>
+<span class="gp">sage: </span><span class="n">P</span> <span class="o">=</span> <span class="n">eulers_method_2x2_plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>В этот момент <tt class="docutils literal"><span class="pre">P</span></tt> содержит в себе два графика: <tt class="docutils literal"><span class="pre">P[0]</span></tt> - график <em>x</em>
+по <em>t</em> и <tt class="docutils literal"><span class="pre">P[1]</span></tt> - график <em>y</em> по <em>t</em>. 
+Оба эти графика могут быть выведены следующим образом:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">show</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">P</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="special-functions">
+<h2>Специальные функции<a class="headerlink" href="#special-functions" title="Permalink to this headline">¶</a></h2>
+<p>Несколько ортогональных полиномов и специальных функций осуществлены с помощью PARI <a class="reference external" href="bibliography.html#gap">[GAP]</a> и Maxima <a class="reference external" href="bibliography.html#max">[Max]</a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">x</span> <span class="o">=</span> <span class="n">polygen</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="s">&#39;x&#39;</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">chebyshev_U</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="go">4*x^2 - 1</span>
+<span class="gp">sage: </span><span class="n">bessel_I</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="s">&quot;pari&quot;</span><span class="p">,</span><span class="mf">250</span><span class="p">)</span>
+<span class="go">0.56515910399248502720769602760986330732889962162109200948029448947925564096</span>
+<span class="gp">sage: </span><span class="n">bessel_I</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">)</span>
+<span class="go">0.565159103992485</span>
+<span class="gp">sage: </span><span class="n">bessel_I</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="s">&quot;maxima&quot;</span><span class="p">)</span>  <span class="c"># last few digits are random</span>
+<span class="go">0.16708949925104899</span>
+</pre></div>
+</div>
+<p>На данный момент Sage рассматривает данные функции только для численного применения.
+Для символьного использования нужно напряму использовать интерфейс Maxima, как описано ниже:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">maxima</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&quot;f:bessel_y(v, w)&quot;</span><span class="p">)</span>
+<span class="go">&#39;bessel_y(v,w)&#39;</span>
+<span class="gp">sage: </span><span class="n">maxima</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s">&quot;diff(f,w)&quot;</span><span class="p">)</span>
+<span class="go">&#39;(bessel_y(v-1,w)-bessel_y(v+1,w))/2&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Содержание</a></h3>
+            <ul>
+<li><a class="reference external" href="">Базовая алгебра</a><ul>
+<li><a class="reference external" href="#solving-equations">Решение уравнений</a><ul>
+<li><a class="reference external" href="#solving-equations-exactly">Точное решение уравнений</a></li>
+<li><a class="reference external" href="#solving-equations-numerically">Численное решение уравнений</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#differentiation-integration-etc">Дифференциирование, интегрирование и т.д.</a></li>
+<li><a class="reference external" href="#solving-differential-equations">Решение дифференциальных уравнений</a></li>
+<li><a class="reference external" href="#euler-s-method-for-systems-of-differential-equations">Иетод Эйлера для решения систем дифференциальных уравнений</a></li>
+<li><a class="reference external" href="#special-functions">Специальные функции</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Предыдущая тема</h4>
+            <p class="topless"><a href="tour_help.html"
+                                  title="previous chapter">Помощь</a></p>
+            <h4>Следующая тема</h4>
+            <p class="topless"><a href="tour_plotting.html"
+                                  title="next chapter">Графики</a></p>
+            <h3>Эта страница</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/tour_algebra.txt"
+                     rel="nofollow">Показать исхондый текст</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Быстрый поиск</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Введите поисковый запрос, название модуля, класса или функции. 
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >содержание</a></li>
+        <li class="right" >
+          <a href="tour_plotting.html" title="Plotting"
+             >вперед</a> |</li>
+        <li class="right" >
+          <a href="tour_help.html" title="Getting Help"
+             >назад</a> |</li>
+  
+    
+      <a href="../index.html"><img src="_static/sagelogo.png" style="vertical-align: middle" title="Sage Logo"></a>
+    
+  
+  
+        <li><a href="index.html">Учебное пособие Sage v4.3.4</a> &raquo;</li>
+
+          <li><a href="tour.html" >Экскурсия</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+    <div class="footer">
+      &copy; Copyright 2005--2010, The Sage Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+    <script type="text/javascript">
+/*global jQuery, window */
+/* Sphinx sidebar toggle.  Putting this code at the end of the body
+ * enables the toggle for the live, static, and offline docs.  Note:
+ * sage.misc.html.math_parse() eats jQuery's dollar-sign shortcut. */
+var jq = jQuery;  
+jq(document).ready(function () {
+    var bar, bod, bg, fg, key, tog, wid_old, wid_new, resize, get_state, set_state;
+    bod = jq('div.bodywrapper');
+    bar = jq('div.sphinxsidebar');
+    tog = jq('<div class="sphinxsidebartoggle"></div>');
+    
+    /* Delayed resize helper.  Not perfect but good enough. */
+    resize = function () {
+        setTimeout(function () {
+            tog.height(bod.height());
+        }, 100);
+    };
+    jq(window).resize(function () {
+        resize();
+    });
+    
+    /* Setup and add the toggle. See Sphinx v0.5.1 default.css. */
+    fg = jq('div.sphinxsidebar p a').css('color') || 'rgb(152, 219, 204)';
+    bg = jq('div.document').css('background-color') || 'rgb(28, 78, 99)';
+    wid_old = '230px';
+    wid_new = '5px';
+    tog.css('background-color', bg)
+        .css('border-width', '0px')
+        .css('border-right', wid_new + ' ridge ' + bg)
+        .css('cursor', 'pointer')
+        .css('position', 'absolute')
+        .css('left', '-' + wid_new)
+        .css('top', '0px')
+        .css('width', wid_new);
+    bod.css('position', 'relative');
+    bod.prepend(tog);
+    resize();
+    
+    /* Cookie helpers. */
+    key = 'sphinxsidebar=';
+    set_state = function (s) {
+        var date = new Date();
+        /* Expiry in 7 days. */
+        date.setTime(date.getTime() + (7 * 24 * 3600 * 1000));
+        document.cookie = key + encodeURIComponent(s) + '; expires=' +
+            date.toUTCString() + '; path=/';
+    };
+    get_state = function () {
+        var i, c, crumbs = document.cookie.split(';');
+        for (i = 0; i < crumbs.length; i += 1) {
+            c = crumbs[i].replace(/^\s+/, '');
+            if (c.indexOf(key) === 0) {
+                return decodeURIComponent(c.substring(key.length, c.length));
+            }
+        }
+        return null;
+    };
+    
+    /* Event handlers. */
+    tog.mouseover(function (ev) {
+        tog.css('border-right-color', fg);
+    }).mouseout(function (ev) {
+        tog.css('border-right-color', bg);
+    }).click(function (ev) {
+        if (bod.hasClass('wide')) {
+            bod.removeClass('wide');
+            bod.css('margin-left', wid_old);
+            bar.css('width', wid_old);
+            bar.show();
+            set_state('visible');
+        } else {
+            set_state('hidden');
+            bar.hide();
+            bar.css('width', '0px');
+            bod.css('margin-left', wid_new);
+            bod.addClass('wide');
+        }
+        resize();
+    });
+    
+    /* Hide the normally visible sidebar? */
+    if (get_state() === 'hidden') {
+        tog.trigger('click');
+    } else {
+        set_state('visible');
+    }
+});
+    </script>
+  </body>
+</html>

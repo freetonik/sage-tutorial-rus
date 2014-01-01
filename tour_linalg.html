@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Линейная алгебра &mdash; Учебное пособие Sage v4.3.4</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '4.3.4',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Sage Tutorial v4.3.4" href="index.html" />
+    <link rel="up" title="A Guided Tour" href="tour.html" />
+    <link rel="next" title="Polynomials" href="tour_polynomial.html" />
+    <link rel="prev" title="Basic Rings" href="tour_rings.html" />
+    <link rel="icon" href="_static/sageicon.png" type="image/x-icon" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">содержание</a></li>
+        <li class="right" >
+          <a href="tour_polynomial.html" title="Polynomials"
+             accesskey="N">вперед</a> |</li>
+        <li class="right" >
+          <a href="tour_rings.html" title="Basic Rings"
+             accesskey="P">назад</a> |</li>
+  
+    
+      <a href="../index.html"><img src="_static/sagelogo.png" style="vertical-align: middle" title="Sage Logo"></a>
+    
+  
+  
+        <li><a href="index.html">Учебное пособие Sage v4.3.4</a> &raquo;</li>
+
+          <li><a href="tour.html" accesskey="U">Экскурсия</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="linear-algebra">
+<span id="section-linalg"></span><h1>Линейная алгебра<a class="headerlink" href="#linear-algebra" title="Permalink to this headline">¶</a></h1>
+<p>Sage поддерживает стандартные конструкции из линейной алгебры, как характеристические полиномы, ступенчатые формы, суммы элементов главной диагонали матрицы, 
+разложения.</p>
+<p>Создавать и перемножать матрицы легко:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">],[</span><span class="mf">3</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">1</span><span class="p">],[</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">w</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="o">-</span><span class="mf">4</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">w</span><span class="o">*</span><span class="n">A</span>
+<span class="go">(0, 0, 0)</span>
+<span class="gp">sage: </span><span class="n">A</span><span class="o">*</span><span class="n">w</span>
+<span class="go">(-9, 1, -2)</span>
+<span class="gp">sage: </span><span class="n">kernel</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">Free module of degree 3 and rank 1 over Integer Ring</span>
+<span class="go">Echelon basis matrix:</span>
+<span class="go">[ 1  1 -4]</span>
+</pre></div>
+</div>
+<p>Решение матричных уравнений также выполняется без затруднений, используя метод <tt class="docutils literal"><span class="pre">solve_right</span></tt>.
+Вычисление <tt class="docutils literal"><span class="pre">A.solve_right(Y)</span></tt> возвратит матрицу (или вектор)
+<img class="math" src="_images/math/6a47ca0fe7cb276abc022af6ac88ddae1a9d6894.png" alt="X"/> так, что <img class="math" src="_images/math/d909781d970c2cffcd2ba8a6132bf0ef23877208.png" alt="AX=Y"/>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">Y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mf">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4</span><span class="p">,</span> <span class="o">-</span><span class="mf">1</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">X</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">solve_right</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">X</span>
+<span class="go">(-2, 1, 0)</span>
+<span class="gp">sage: </span><span class="n">A</span> <span class="o">*</span> <span class="n">X</span>   <span class="c"># checking our answer...</span>
+<span class="go">(0, -4, -1)</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">\</span></tt> может быть использован вместо <tt class="docutils literal"><span class="pre">solve_right</span></tt>; 
+используйте <tt class="docutils literal"><span class="pre">A</span> <span class="pre">\</span> <span class="pre">Y</span></tt> вместо <tt class="docutils literal"><span class="pre">A.solve_right(Y)</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">A</span> \ <span class="n">Y</span>
+<span class="go">(-2, 1, 0)</span>
+</pre></div>
+</div>
+<p>Если решения не существует, то Sage вернет ошибку:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">A</span><span class="o">.</span><span class="n">solve_right</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">ValueError: matrix equation has no solutions</span>
+</pre></div>
+</div>
+<p>Используйте <tt class="docutils literal"><span class="pre">A.solve_left(Y)</span></tt>, чтобы найти <img class="math" src="_images/math/6a47ca0fe7cb276abc022af6ac88ddae1a9d6894.png" alt="X"/> в
+<img class="math" src="_images/math/637e987ded321eecfc025d82935702a036714dbe.png" alt="XA=Y"/>.</p>
+<p>Sage может находить собственное число и собственный вектор:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mf">0</span><span class="p">,</span> <span class="mf">4</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">A</span><span class="o">.</span><span class="n">eigenvalues</span> <span class="p">()</span>
+<span class="go">[-2*I, 2*I]</span>
+<span class="gp">sage: </span><span class="n">B</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">3</span><span class="p">],</span> <span class="p">[</span><span class="mf">3</span><span class="p">,</span> <span class="mf">1</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">B</span><span class="o">.</span><span class="n">eigenvectors_left</span><span class="p">()</span>
+<span class="go">[(4, [</span>
+<span class="go">(1, 1)</span>
+<span class="go">], 1), (-2, [</span>
+<span class="go">(1, -1)</span>
+<span class="go">], 1)]</span>
+</pre></div>
+</div>
+<p>(Результат <tt class="docutils literal"><span class="pre">eigenvectors_left</span></tt> - это список троек: (собственное число, собственный вектор, многообразие).)  
+Собственные числа и векторя для <tt class="docutils literal"><span class="pre">QQ</span></tt> или <tt class="docutils literal"><span class="pre">RR</span></tt> 
+также могут быть вычислены с помощью Maxima (см. <a class="reference external" href="interfaces.html#section-maxima"><em>Maxima</em></a>).</p>
+<p>Как указано в <a class="reference external" href="tour_rings.html#section-rings"><em>Базовых коьцах</em></a>, кольцо, в котором определена матрица, 
+влияет на некоторые ее свойства. В следующем примере первый аргумент команды <tt class="docutils literal"><span class="pre">matrix</span></tt> 
+сообщает Sage, чтобы матрица рассматривалась как матрица целых чисел (случай с <tt class="docutils literal"><span class="pre">ZZ</span></tt>), как матрица рациональных чисел 
+(<tt class="docutils literal"><span class="pre">QQ</span></tt>) или как матрица вещественных чисел(<tt class="docutils literal"><span class="pre">RR</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">AZ</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">ZZ</span><span class="p">,</span> <span class="p">[[</span><span class="mf">2</span><span class="p">,</span><span class="mf">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">AQ</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="p">[[</span><span class="mf">2</span><span class="p">,</span><span class="mf">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">AR</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">RR</span><span class="p">,</span> <span class="p">[[</span><span class="mf">2</span><span class="p">,</span><span class="mf">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">]])</span>
+<span class="gp">sage: </span><span class="n">AZ</span><span class="o">.</span><span class="n">echelon_form</span><span class="p">()</span>
+<span class="go">[2 0]</span>
+<span class="go">[0 1]</span>
+<span class="gp">sage: </span><span class="n">AQ</span><span class="o">.</span><span class="n">echelon_form</span><span class="p">()</span>
+<span class="go">[1 0]</span>
+<span class="go">[0 1]</span>
+<span class="gp">sage: </span><span class="n">AR</span><span class="o">.</span><span class="n">echelon_form</span><span class="p">()</span>
+<span class="go">[ 1.00000000000000 0.000000000000000]</span>
+<span class="go">[0.000000000000000  1.00000000000000]</span>
+</pre></div>
+</div>
+<div class="section" id="matrix-spaces">
+<h2>Матричное пространство<a class="headerlink" href="#matrix-spaces" title="Permalink to this headline">¶</a></h2>
+<p>Создадим пространство <img class="math" src="_images/math/a7074f35f7dc78ebda02541089860cb883cf5270.png" alt="\text{Mat}_{3\times 3}(\QQ)"/>, состоящее из матриц <img class="math" src="_images/math/c7968d04daa5b3150c26dea6e80f73db329da097.png" alt="3 \times
+3"/> с элементами из рациональных чисел:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">MatrixSpace</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mf">3</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">M</span>
+<span class="go">Full MatrixSpace of 3 by 3 dense matrices over Rational Field</span>
+</pre></div>
+</div>
+<p>(Для того, чтобы создать пространство из матриц 3 на 4, используйте <tt class="docutils literal"><span class="pre">MatrixSpace(QQ,3,4)</span></tt>. Если число столбцов не указано, по умолчанию 
+оно будет равно числу строк (<tt class="docutils literal"><span class="pre">MatrixSpace(QQ,3)</span></tt> эквивалентно <tt class="docutils literal"><span class="pre">MatrixSpace(QQ,3,3)</span></tt>.) 
+Матричное пространство имеет базис, который содержится в Sage в виде списка:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">B</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="go">9</span>
+<span class="gp">sage: </span><span class="n">B</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
+<span class="go">[0 1 0]</span>
+<span class="go">[0 0 0]</span>
+<span class="go">[0 0 0]</span>
+</pre></div>
+</div>
+<p>Создадим матрицу как элемент <tt class="docutils literal"><span class="pre">M</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">M</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mf">9</span><span class="p">));</span> <span class="n">A</span>
+<span class="go">[0 1 2]</span>
+<span class="go">[3 4 5]</span>
+<span class="go">[6 7 8]</span>
+</pre></div>
+</div>
+<p>Далее покажем вычисление матриц, определенных в конечных полях:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">MatrixSpace</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mf">2</span><span class="p">),</span><span class="mf">4</span><span class="p">,</span><span class="mf">8</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">M</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">0</span><span class="p">])</span>
+<span class="gp">sage: </span><span class="n">A</span>
+<span class="go">[1 1 0 0 1 1 1 1]</span>
+<span class="go">[0 1 0 0 1 0 1 1]</span>
+<span class="go">[0 0 1 0 1 1 0 1]</span>
+<span class="go">[0 0 1 1 1 1 1 0]</span>
+<span class="gp">sage: </span><span class="n">rows</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">rows</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">A</span><span class="o">.</span><span class="n">columns</span><span class="p">()</span>
+<span class="go">[(1, 0, 0, 0), (1, 1, 0, 0), (0, 0, 1, 1), (0, 0, 0, 1),</span>
+<span class="go"> (1, 1, 1, 1), (1, 0, 1, 1), (1, 1, 0, 1), (1, 1, 1, 0)]</span>
+<span class="gp">sage: </span><span class="n">rows</span>
+<span class="go">[(1, 1, 0, 0, 1, 1, 1, 1), (0, 1, 0, 0, 1, 0, 1, 1),</span>
+<span class="go"> (0, 0, 1, 0, 1, 1, 0, 1), (0, 0, 1, 1, 1, 1, 1, 0)]</span>
+</pre></div>
+</div>
+<p>Создадим под-пространство в <img class="math" src="_images/math/f6837415ad1fc9748278919f47f32f9649bd7117.png" alt="\GF{2}"/>, 
+охватывающее вышеперечисленные строки.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">V</span> <span class="o">=</span> <span class="n">VectorSpace</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mf">2</span><span class="p">),</span><span class="mf">8</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">S</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">subspace</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">S</span>
+<span class="go">Vector space of degree 8 and dimension 4 over Finite Field of size 2</span>
+<span class="go">Basis matrix:</span>
+<span class="go">[1 0 0 0 0 1 0 0]</span>
+<span class="go">[0 1 0 0 1 0 1 1]</span>
+<span class="go">[0 0 1 0 1 1 0 1]</span>
+<span class="go">[0 0 0 1 0 0 1 1]</span>
+<span class="gp">sage: </span><span class="n">A</span><span class="o">.</span><span class="n">echelon_form</span><span class="p">()</span>
+<span class="go">[1 0 0 0 0 1 0 0]</span>
+<span class="go">[0 1 0 0 1 0 1 1]</span>
+<span class="go">[0 0 1 0 1 1 0 1]</span>
+<span class="go">[0 0 0 1 0 0 1 1]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sparse-linear-algebra">
+<h2>Разреженная линейная алгебра<a class="headerlink" href="#sparse-linear-algebra" title="Permalink to this headline">¶</a></h2>
+<p>Sage поддерживает разреженную линейную алгебру.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">MatrixSpace</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mf">100</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">random_element</span><span class="p">(</span><span class="n">density</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">E</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">echelon_form</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Мульти-модульный алгоритм в Sage работает хорошо для квадратных матриц (но не так хорошо для неквадратных матриц):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">MatrixSpace</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mf">50</span><span class="p">,</span> <span class="mf">100</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">random_element</span><span class="p">(</span><span class="n">density</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">E</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">echelon_form</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">MatrixSpace</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mf">2</span><span class="p">),</span> <span class="mf">20</span><span class="p">,</span> <span class="mf">40</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">A</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">random_element</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">E</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">echelon_form</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Заметьте, что в Python использование заглавных букв играет роль:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">M</span> <span class="o">=</span> <span class="n">MatrixSpace</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span><span class="mf">10</span><span class="p">,</span> <span class="n">Sparse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">TypeError: MatrixSpace() got an unexpected keyword argument &#39;Sparse&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Содержание</a></h3>
+            <ul>
+<li><a class="reference external" href="">Линейная алгебра</a><ul>
+<li><a class="reference external" href="#matrix-spaces">Матричное пространство</a></li>
+<li><a class="reference external" href="#sparse-linear-algebra">Разреженная линейная алгебра</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Предыдущая тема</h4>
+            <p class="topless"><a href="tour_rings.html"
+                                  title="previous chapter">Базовые кольца</a></p>
+            <h4>Следующая тема</h4>
+            <p class="topless"><a href="tour_polynomial.html"
+                                  title="next chapter">Полиномы</a></p>
+            <h3>Эта страница</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/tour_linalg.txt"
+                     rel="nofollow">Показать исхондый текст</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Быстрый поиск</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Введите поисковый запрос, название модуля, класса или функции.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >содержание</a></li>
+        <li class="right" >
+          <a href="tour_polynomial.html" title="Polynomials"
+             >вперед</a> |</li>
+        <li class="right" >
+          <a href="tour_rings.html" title="Basic Rings"
+             >назад</a> |</li>
+  
+    
+      <a href="../index.html"><img src="_static/sagelogo.png" style="vertical-align: middle" title="Sage Logo"></a>
+    
+  
+  
+        <li><a href="index.html">Учебное пособие Sage v4.3.4</a> &raquo;</li>
+
+          <li><a href="tour.html" >Экскурсия</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+    <div class="footer">
+      &copy; Copyright 2005--2010, The Sage Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+    <script type="text/javascript">
+/*global jQuery, window */
+/* Sphinx sidebar toggle.  Putting this code at the end of the body
+ * enables the toggle for the live, static, and offline docs.  Note:
+ * sage.misc.html.math_parse() eats jQuery's dollar-sign shortcut. */
+var jq = jQuery;  
+jq(document).ready(function () {
+    var bar, bod, bg, fg, key, tog, wid_old, wid_new, resize, get_state, set_state;
+    bod = jq('div.bodywrapper');
+    bar = jq('div.sphinxsidebar');
+    tog = jq('<div class="sphinxsidebartoggle"></div>');
+    
+    /* Delayed resize helper.  Not perfect but good enough. */
+    resize = function () {
+        setTimeout(function () {
+            tog.height(bod.height());
+        }, 100);
+    };
+    jq(window).resize(function () {
+        resize();
+    });
+    
+    /* Setup and add the toggle. See Sphinx v0.5.1 default.css. */
+    fg = jq('div.sphinxsidebar p a').css('color') || 'rgb(152, 219, 204)';
+    bg = jq('div.document').css('background-color') || 'rgb(28, 78, 99)';
+    wid_old = '230px';
+    wid_new = '5px';
+    tog.css('background-color', bg)
+        .css('border-width', '0px')
+        .css('border-right', wid_new + ' ridge ' + bg)
+        .css('cursor', 'pointer')
+        .css('position', 'absolute')
+        .css('left', '-' + wid_new)
+        .css('top', '0px')
+        .css('width', wid_new);
+    bod.css('position', 'relative');
+    bod.prepend(tog);
+    resize();
+    
+    /* Cookie helpers. */
+    key = 'sphinxsidebar=';
+    set_state = function (s) {
+        var date = new Date();
+        /* Expiry in 7 days. */
+        date.setTime(date.getTime() + (7 * 24 * 3600 * 1000));
+        document.cookie = key + encodeURIComponent(s) + '; expires=' +
+            date.toUTCString() + '; path=/';
+    };
+    get_state = function () {
+        var i, c, crumbs = document.cookie.split(';');
+        for (i = 0; i < crumbs.length; i += 1) {
+            c = crumbs[i].replace(/^\s+/, '');
+            if (c.indexOf(key) === 0) {
+                return decodeURIComponent(c.substring(key.length, c.length));
+            }
+        }
+        return null;
+    };
+    
+    /* Event handlers. */
+    tog.mouseover(function (ev) {
+        tog.css('border-right-color', fg);
+    }).mouseout(function (ev) {
+        tog.css('border-right-color', bg);
+    }).click(function (ev) {
+        if (bod.hasClass('wide')) {
+            bod.removeClass('wide');
+            bod.css('margin-left', wid_old);
+            bar.css('width', wid_old);
+            bar.show();
+            set_state('visible');
+        } else {
+            set_state('hidden');
+            bar.hide();
+            bar.css('width', '0px');
+            bod.css('margin-left', wid_new);
+            bod.addClass('wide');
+        }
+        resize();
+    });
+    
+    /* Hide the normally visible sidebar? */
+    if (get_state() === 'hidden') {
+        tog.trigger('click');
+    } else {
+        set_state('visible');
+    }
+});
+    </script>
+  </body>
+</html>

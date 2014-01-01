@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Функции &mdash; Учебное пособие Sage v4.3.4</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '4.3.4',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Sage Tutorial v4.3.4" href="index.html" />
+    <link rel="up" title="A Guided Tour" href="tour.html" />
+    <link rel="next" title="Basic Rings" href="tour_rings.html" />
+    <link rel="prev" title="Plotting" href="tour_plotting.html" />
+    <link rel="icon" href="_static/sageicon.png" type="image/x-icon" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">содержание</a></li>
+        <li class="right" >
+          <a href="tour_rings.html" title="Basic Rings"
+             accesskey="N">вперед</a> |</li>
+        <li class="right" >
+          <a href="tour_plotting.html" title="Plotting"
+             accesskey="P">назад</a> |</li>
+  
+    
+      <a href="../index.html"><img src="_static/sagelogo.png" style="vertical-align: middle" title="Sage Logo"></a>
+    
+  
+  
+        <li><a href="index.html">Учебное пособие Sage v4.3.4</a> &raquo;</li>
+
+          <li><a href="tour.html" accesskey="U">Экскурсия</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="some-common-issues-with-functions">
+<span id="section-functions-issues"></span><h1>Функции<a class="headerlink" href="#some-common-issues-with-functions" title="Permalink to this headline">¶</a></h1>
+<p>Некоторые аспекты определенных функций (например, для дифференциации или построения графиков) могут быть очень запутанными. 
+В этой секции мы обращаем внимание на некоторые наиболее распространенные проблемы.</p>
+<p>Далее показываются несколько способов для того, чтобы определить функции:</p>
+<p>1. Определите функцию Python, как описано в <a class="reference external" href="tour_help.html#section-functions"><em>Функциях, Отступах и 
+Счетчики</em></a>.
+Для этих функций могут быть построены графики, но дифференциирование и интегрирование не применимо к ним.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">z</span><span class="p">):</span> <span class="k">return</span> <span class="n">z</span><span class="o">^</span><span class="mf">2</span>
+<span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="go">&lt;type &#39;function&#39;&gt;</span>
+<span class="gp">sage: </span><span class="n">f</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span>
+<span class="go">9</span>
+<span class="gp">sage: </span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Обратите внимание на синтаксис в последней строчке. <tt class="docutils literal"><span class="pre">plot(f(z),</span> <span class="pre">0,</span> <span class="pre">2)</span></tt> 
+выдаст ошибку, так как <tt class="docutils literal"><span class="pre">z</span></tt> - это переменная-болванка в определении 
+<tt class="docutils literal"><span class="pre">f</span></tt>, которая не определена внутри данной конструкции. 
+Просто <tt class="docutils literal"><span class="pre">f(z)</span></tt> возвратит ошибку. Следующее будет работать в данном контексте, однако, в общем, 
+возникнут некоторые затруднения, но они могут быть проигнорированы (см. пункт 4).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">var</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>   <span class="c"># define z to be a variable</span>
+<span class="go">z</span>
+<span class="gp">sage: </span><span class="n">f</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">z^2</span>
+<span class="gp">sage: </span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>В этом случае <tt class="docutils literal"><span class="pre">f(z)</span></tt> - это символьное выражение.</p>
+<p>2. Определим &#8220;вызываемое символьное выражение&#8221;. Оно может быть дифференциировано, интегрировано, а также можно построить график.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="o">^</span><span class="mf">2</span>
+<span class="gp">sage: </span><span class="n">g</span>        <span class="c"># g sends x to x^2</span>
+<span class="go">x |--&gt; x^2</span>
+<span class="gp">sage: </span><span class="n">g</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span>
+<span class="go">9</span>
+<span class="gp">sage: </span><span class="n">Dg</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">derivative</span><span class="p">();</span> <span class="n">Dg</span>
+<span class="go">x |--&gt; 2*x</span>
+<span class="gp">sage: </span><span class="n">Dg</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="go">&lt;type &#39;sage.symbolic.expression.Expression&#39;&gt;</span>
+<span class="gp">sage: </span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Если <tt class="docutils literal"><span class="pre">g</span></tt> - это вызываемое символьное выражение, 
+<tt class="docutils literal"><span class="pre">g(x)</span></tt> - это связянный с ним объект, но другого вида, для которого можно построить график и который 
+можно дифференциировать и т.д.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">x^2</span>
+<span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="go">&lt;type &#39;sage.symbolic.expression.Expression&#39;&gt;</span>
+<span class="gp">sage: </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>
+<span class="go">2*x</span>
+<span class="gp">sage: </span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>3. Можно использовать уже определенную функцию Sage - &#8216;функцию исчисления&#8217;. Для нее может быть построен график, 
+она может быть дифференциирована и интегрирована.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">sin</span><span class="p">)</span>
+<span class="go">&lt;class &#39;sage.functions.trig.Function_sin&#39;&gt;</span>
+<span class="gp">sage: </span><span class="n">plot</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="go">&lt;type &#39;sage.symbolic.expression.Expression&#39;&gt;</span>
+<span class="gp">sage: </span><span class="n">plot</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Сама по себе функция <tt class="docutils literal"><span class="pre">sin</span></tt> не может быть дифференциирована, по крайней мере 
+не может произвести <tt class="docutils literal"><span class="pre">cos</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="n">sin</span>
+<span class="gp">sage: </span><span class="n">f</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="go">AttributeError: ...</span>
+</pre></div>
+</div>
+<p>Использование <tt class="docutils literal"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">sin(x)</span></tt> 
+вместо <tt class="docutils literal"><span class="pre">sin</span></tt> работает, но лучше использовать 
+<tt class="docutils literal"><span class="pre">f(x)</span> <span class="pre">=</span> <span class="pre">sin(x)</span></tt> для того, чтобы 
+определить вызываемое символьное выражение.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">S</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">sage: </span><span class="n">S</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>
+<span class="go">x |--&gt; cos(x)</span>
+</pre></div>
+</div>
+<p>Далее следуют некоторые общие проблемы с объяснением:</p>
+<p>4. Случайная оценка.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>      <span class="k">if</span> <span class="n">x</span><span class="o">&lt;</span><span class="mf">2</span><span class="p">:</span>
+<span class="gp">... </span>          <span class="k">return</span> <span class="mf">0</span>
+<span class="gp">... </span>      <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>          <span class="k">return</span> <span class="n">x</span><span class="o">-</span><span class="mf">2</span>
+</pre></div>
+</div>
+<p>Проблема: <tt class="docutils literal"><span class="pre">plot(h(x),</span> <span class="pre">0,</span> <span class="pre">4)</span></tt> 
+построит кривую <img class="math" src="_images/math/90aac71d17be5511c92cd663335a077bef652f4b.png" alt="y=x-2"/>. 
+Причина: В команде <tt class="docutils literal"><span class="pre">plot(h(x),</span> <span class="pre">0,</span> <span class="pre">4)</span></tt> 
+сначала оценивается <tt class="docutils literal"><span class="pre">h(x)</span></tt>, что означает подставку
+<tt class="docutils literal"><span class="pre">x</span></tt> в функцию <tt class="docutils literal"><span class="pre">h</span></tt> и оценку <tt class="docutils literal"><span class="pre">x&lt;2</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mf">2</span><span class="p">)</span>
+<span class="go">&lt;type &#39;sage.symbolic.expression.Expression&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Решение: Не используйте <tt class="docutils literal"><span class="pre">plot(h(x),</span> <span class="pre">0,</span> <span class="pre">4)</span></tt>; используйте:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">plot</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>5. Ошибочное создание константы вместо функции.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">sage: </span><span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">g</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>Проблема: <tt class="docutils literal"><span class="pre">g(3)</span></tt>, например, возвратит ошибку с сообщением
+&#8220;ValueError: the number of arguments must be less than or equal to 0.&#8221;</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="go">&lt;type &#39;sage.symbolic.expression.Expression&#39;&gt;</span>
+<span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="go">&lt;type &#39;sage.symbolic.expression.Expression&#39;&gt;</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">g</span></tt> не является функцией, это константа, 
+поэтому она не имеет переменных, и вы можете вставлять что угодно в нее.</p>
+<p>Решение: есть несколько возможных путей.</p>
+<ul class="simple">
+<li>Определить <tt class="docutils literal"><span class="pre">f</span></tt> изначально как символьное выражение.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span>        <span class="c"># instead of &#39;f = x&#39;</span>
+<span class="gp">sage: </span><span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">g</span>
+<span class="go">x |--&gt; 1</span>
+<span class="gp">sage: </span><span class="n">g</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="go">&lt;type &#39;sage.symbolic.expression.Expression&#39;&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Либо вместе с <tt class="docutils literal"><span class="pre">f</span></tt>, определенной выше, определить <tt class="docutils literal"><span class="pre">g</span></tt> как символьное выражение.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">sage: </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>  <span class="c"># instead of &#39;g = f.derivative()&#39;</span>
+<span class="gp">sage: </span><span class="n">g</span>
+<span class="go">x |--&gt; 1</span>
+<span class="gp">sage: </span><span class="n">g</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">sage: </span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="go">&lt;type &#39;sage.symbolic.expression.Expression&#39;&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Либо с <tt class="docutils literal"><span class="pre">f</span></tt> и <tt class="docutils literal"><span class="pre">g</span></tt>, заданными, как показано выше,
+ создать переменную, под которую подставляются значения.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">sage: </span><span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">g</span>
+<span class="go">1</span>
+<span class="gp">sage: </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">3</span><span class="p">)</span>    <span class="c"># instead of &#39;g(3)&#39;</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>Есть еще один способ, как определить различие между производными 
+<tt class="docutils literal"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">x</span></tt> и <tt class="docutils literal"><span class="pre">f(x)</span> <span class="pre">=</span> <span class="pre">x</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">sage: </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">sage: </span><span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">g</span><span class="o">.</span><span class="n">variables</span><span class="p">()</span>  <span class="c"># the variables present in g</span>
+<span class="go">()</span>
+<span class="gp">sage: </span><span class="n">g</span><span class="o">.</span><span class="n">arguments</span><span class="p">()</span>  <span class="c"># the arguments which can be plugged into g</span>
+<span class="go">(x,)</span>
+<span class="gp">sage: </span><span class="n">f</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">sage: </span><span class="n">h</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>
+<span class="gp">sage: </span><span class="n">h</span><span class="o">.</span><span class="n">variables</span><span class="p">()</span>
+<span class="go">()</span>
+<span class="gp">sage: </span><span class="n">h</span><span class="o">.</span><span class="n">arguments</span><span class="p">()</span>
+<span class="go">()</span>
+</pre></div>
+</div>
+<p>Как показывает данный пример, <tt class="docutils literal"><span class="pre">h</span></tt> не принимает аргументов, поэтому 
+<tt class="docutils literal"><span class="pre">h(3)</span></tt> вернет ошибку.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Предыдущая тема</h4>
+            <p class="topless"><a href="tour_plotting.html"
+                                  title="previous chapter">Графики</a></p>
+            <h4>Следующая тема</h4>
+            <p class="topless"><a href="tour_rings.html"
+                                  title="next chapter">Базовые кольца</a></p>
+            <h3>Эта страница</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/tour_functions.txt"
+                     rel="nofollow">Показать исхондый текст</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Быстрый поиск</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Введите поисковый запрос, название модуля, класса или функции.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >содержание</a></li>
+        <li class="right" >
+          <a href="tour_rings.html" title="Basic Rings"
+             >вперед</a> |</li>
+        <li class="right" >
+          <a href="tour_plotting.html" title="Plotting"
+             >назад</a> |</li>
+  
+    
+      <a href="../index.html"><img src="_static/sagelogo.png" style="vertical-align: middle" title="Sage Logo"></a>
+    
+  
+  
+        <li><a href="index.html">Учебное пособие Sage v4.3.4</a> &raquo;</li>
+
+          <li><a href="tour.html" >Экскурсия</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+    <div class="footer">
+      &copy; Copyright 2005--2010, The Sage Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+    <script type="text/javascript">
+/*global jQuery, window */
+/* Sphinx sidebar toggle.  Putting this code at the end of the body
+ * enables the toggle for the live, static, and offline docs.  Note:
+ * sage.misc.html.math_parse() eats jQuery's dollar-sign shortcut. */
+var jq = jQuery;  
+jq(document).ready(function () {
+    var bar, bod, bg, fg, key, tog, wid_old, wid_new, resize, get_state, set_state;
+    bod = jq('div.bodywrapper');
+    bar = jq('div.sphinxsidebar');
+    tog = jq('<div class="sphinxsidebartoggle"></div>');
+    
+    /* Delayed resize helper.  Not perfect but good enough. */
+    resize = function () {
+        setTimeout(function () {
+            tog.height(bod.height());
+        }, 100);
+    };
+    jq(window).resize(function () {
+        resize();
+    });
+    
+    /* Setup and add the toggle. See Sphinx v0.5.1 default.css. */
+    fg = jq('div.sphinxsidebar p a').css('color') || 'rgb(152, 219, 204)';
+    bg = jq('div.document').css('background-color') || 'rgb(28, 78, 99)';
+    wid_old = '230px';
+    wid_new = '5px';
+    tog.css('background-color', bg)
+        .css('border-width', '0px')
+        .css('border-right', wid_new + ' ridge ' + bg)
+        .css('cursor', 'pointer')
+        .css('position', 'absolute')
+        .css('left', '-' + wid_new)
+        .css('top', '0px')
+        .css('width', wid_new);
+    bod.css('position', 'relative');
+    bod.prepend(tog);
+    resize();
+    
+    /* Cookie helpers. */
+    key = 'sphinxsidebar=';
+    set_state = function (s) {
+        var date = new Date();
+        /* Expiry in 7 days. */
+        date.setTime(date.getTime() + (7 * 24 * 3600 * 1000));
+        document.cookie = key + encodeURIComponent(s) + '; expires=' +
+            date.toUTCString() + '; path=/';
+    };
+    get_state = function () {
+        var i, c, crumbs = document.cookie.split(';');
+        for (i = 0; i < crumbs.length; i += 1) {
+            c = crumbs[i].replace(/^\s+/, '');
+            if (c.indexOf(key) === 0) {
+                return decodeURIComponent(c.substring(key.length, c.length));
+            }
+        }
+        return null;
+    };
+    
+    /* Event handlers. */
+    tog.mouseover(function (ev) {
+        tog.css('border-right-color', fg);
+    }).mouseout(function (ev) {
+        tog.css('border-right-color', bg);
+    }).click(function (ev) {
+        if (bod.hasClass('wide')) {
+            bod.removeClass('wide');
+            bod.css('margin-left', wid_old);
+            bar.css('width', wid_old);
+            bar.show();
+            set_state('visible');
+        } else {
+            set_state('hidden');
+            bar.hide();
+            bar.css('width', '0px');
+            bod.css('margin-left', wid_new);
+            bod.addClass('wide');
+        }
+        resize();
+    });
+    
+    /* Hide the normally visible sidebar? */
+    if (get_state() === 'hidden') {
+        tog.trigger('click');
+    } else {
+        set_state('visible');
+    }
+});
+    </script>
+  </body>
+</html>

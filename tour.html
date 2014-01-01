@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Экскурсия по Учебному пособию Sage v4.3.4</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '4.3.4',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Sage Tutorial v4.3.4" href="index.html" />
+    <link rel="next" title="Assignment, Equality, and Arithmetic" href="tour_assignment.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
+    <link rel="icon" href="_static/sageicon.png" type="image/x-icon" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">содержание</a></li>
+        <li class="right" >
+          <a href="tour_assignment.html" title="Assignment, Equality, and Arithmetic"
+             accesskey="N">вперед</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="P">назад</a> |</li>
+  
+    
+      <a href="../index.html"><img src="_static/sagelogo.png" style="vertical-align: middle" title="Sage Logo"></a>
+    
+  
+  
+        <li><a href="index.html">Учебное пособие Sage v4.3.4</a> &raquo;</li>
+ 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="a-guided-tour">
+<h1>Экскурсия<a class="headerlink" href="#a-guided-tour" title="Permalink to this headline">¶</a></h1>
+<p>Данная секция покажет, что доступно в Sage.
+Для других примеров см. &#8220;Sage Constructions&#8221;, где находятся ответы на часто задаваемые вопросы. Также см. &#8220;Справочное руководство Sage&#8221;, в котором можно найти тысячи других примеров.
+С данной экскурсией можно работать интерактивно, если запустить записную книжку Sage и нажать на ссылку<tt class="docutils literal"><span class="pre">Help</span></tt>.</p>
+<p>(Если уроки просматриваются в записной книжке Sage, нажмите <tt class="docutils literal"><span class="pre">shift-enter</span></tt> для того, чтобы вычислить 
+любую ячейку ввода. До нажатия сочетания клавиш shift-enter можно редактировать текст ввода.)</p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="tour_assignment.html">Назначение, Равенство и Арифметика</a></li>
+<li class="toctree-l1"><a class="reference external" href="tour_help.html">Помощь</a></li>
+<li class="toctree-l1"><a class="reference external" href="tour_help.html#functions-indentation-and-counting">Функции, Отступы и Счетчики</a></li>
+<li class="toctree-l1"><a class="reference external" href="tour_algebra.html">Базовая Алгебра</a><ul>
+<li class="toctree-l2"><a class="reference external" href="tour_algebra.html#solving-equations">Решение Уравнений</a><ul>
+<li class="toctree-l3"><a class="reference external" href="tour_algebra.html#solving-equations-exactly">Точное Решение Уравнений</a></li>
+<li class="toctree-l3"><a class="reference external" href="tour_algebra.html#solving-equations-numerically">Численное Решение Уравнений</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference external" href="tour_algebra.html#differentiation-integration-etc">Дифференциирование, Интегрирование и т.д.</a></li>
+<li class="toctree-l2"><a class="reference external" href="tour_algebra.html#solving-differential-equations">Решение Дифференциальных Уравнений</a></li>
+<li class="toctree-l2"><a class="reference external" href="tour_algebra.html#euler-s-method-for-systems-of-differential-equations">Метод Эйлера для Решения Систем Дифференциальных Уравнений</a></li>
+<li class="toctree-l2"><a class="reference external" href="tour_algebra.html#special-functions">Специальные Функции</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="tour_plotting.html">Черчение</a><ul>
+<li class="toctree-l2"><a class="reference external" href="tour_plotting.html#two-dimensional-plots">Двумерные Чертежи</a></li>
+<li class="toctree-l2"><a class="reference external" href="tour_plotting.html#three-dimensional-plots">Трехмерные Чертежи</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="tour_functions.html">Распространенные Затруднения с Функциями</a></li>
+<li class="toctree-l1"><a class="reference external" href="tour_rings.html">Базовые Кольца</a></li>
+<li class="toctree-l1"><a class="reference external" href="tour_linalg.html">Линейная Алгебра</a><ul>
+<li class="toctree-l2"><a class="reference external" href="tour_linalg.html#matrix-spaces">Матрицы</a></li>
+<li class="toctree-l2"><a class="reference external" href="tour_linalg.html#sparse-linear-algebra">Разреженная Линейная Алгебра</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="tour_polynomial.html">Полиномы</a><ul>
+<li class="toctree-l2"><a class="reference external" href="tour_polynomial.html#univariate-polynomials">Одномерные Полиномы</a></li>
+<li class="toctree-l2"><a class="reference external" href="tour_polynomial.html#multivariate-polynomials">Многомерные Полиномы</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="tour_groups.html">Конечные Группы, Абелевы Группы</a></li>
+<li class="toctree-l1"><a class="reference external" href="tour_numtheory.html">Теория Чисел</a><ul>
+<li class="toctree-l2"><a class="reference external" href="tour_numtheory.html#adic-numbers">Числа <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="tour_advanced.html">Немного Высшей Математики</a><ul>
+<li class="toctree-l2"><a class="reference external" href="tour_advanced.html#algebraic-geometry">Алгебраическа Геометрия</a></li>
+<li class="toctree-l2"><a class="reference external" href="tour_advanced.html#elliptic-curves">Эллиптические кривые</a></li>
+<li class="toctree-l2"><a class="reference external" href="tour_advanced.html#dirichlet-characters">Символы Дирихле</a></li>
+<li class="toctree-l2"><a class="reference external" href="tour_advanced.html#modular-forms">Модулярные Формы</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Предыдущая тема</h4>
+            <p class="topless"><a href="introduction.html"
+                                  title="previous chapter">Введение</a></p>
+            <h4>Следующая тема</h4>
+            <p class="topless"><a href="tour_assignment.html"
+                                  title="next chapter">Назначение, Равенство и Арифметика</a></p>
+            <h3>Эта страница</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/tour.txt"
+                     rel="nofollow">Показать исхондый текст</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Быстрый поиск</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Введите поисковый запрос, название модуля, класса или функции.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >содержание</a></li>
+        <li class="right" >
+          <a href="tour_assignment.html" title="Assignment, Equality, and Arithmetic"
+             >вперед</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             >назад</a> |</li>
+  
+    
+      <a href="../index.html"><img src="_static/sagelogo.png" style="vertical-align: middle" title="Sage Logo"></a>
+    
+  
+  
+        <li><a href="index.html">Учебное пособие Sage v4.3.4</a> &raquo;</li>
+ 
+      </ul>
+    </div>
+    
+    <div class="footer">
+      &copy; Copyright 2005--2010, The Sage Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+    <script type="text/javascript">
+/*global jQuery, window */
+/* Sphinx sidebar toggle.  Putting this code at the end of the body
+ * enables the toggle for the live, static, and offline docs.  Note:
+ * sage.misc.html.math_parse() eats jQuery's dollar-sign shortcut. */
+var jq = jQuery;  
+jq(document).ready(function () {
+    var bar, bod, bg, fg, key, tog, wid_old, wid_new, resize, get_state, set_state;
+    bod = jq('div.bodywrapper');
+    bar = jq('div.sphinxsidebar');
+    tog = jq('<div class="sphinxsidebartoggle"></div>');
+    
+    /* Delayed resize helper.  Not perfect but good enough. */
+    resize = function () {
+        setTimeout(function () {
+            tog.height(bod.height());
+        }, 100);
+    };
+    jq(window).resize(function () {
+        resize();
+    });
+    
+    /* Setup and add the toggle. See Sphinx v0.5.1 default.css. */
+    fg = jq('div.sphinxsidebar p a').css('color') || 'rgb(152, 219, 204)';
+    bg = jq('div.document').css('background-color') || 'rgb(28, 78, 99)';
+    wid_old = '230px';
+    wid_new = '5px';
+    tog.css('background-color', bg)
+        .css('border-width', '0px')
+        .css('border-right', wid_new + ' ridge ' + bg)
+        .css('cursor', 'pointer')
+        .css('position', 'absolute')
+        .css('left', '-' + wid_new)
+        .css('top', '0px')
+        .css('width', wid_new);
+    bod.css('position', 'relative');
+    bod.prepend(tog);
+    resize();
+    
+    /* Cookie helpers. */
+    key = 'sphinxsidebar=';
+    set_state = function (s) {
+        var date = new Date();
+        /* Expiry in 7 days. */
+        date.setTime(date.getTime() + (7 * 24 * 3600 * 1000));
+        document.cookie = key + encodeURIComponent(s) + '; expires=' +
+            date.toUTCString() + '; path=/';
+    };
+    get_state = function () {
+        var i, c, crumbs = document.cookie.split(';');
+        for (i = 0; i < crumbs.length; i += 1) {
+            c = crumbs[i].replace(/^\s+/, '');
+            if (c.indexOf(key) === 0) {
+                return decodeURIComponent(c.substring(key.length, c.length));
+            }
+        }
+        return null;
+    };
+    
+    /* Event handlers. */
+    tog.mouseover(function (ev) {
+        tog.css('border-right-color', fg);
+    }).mouseout(function (ev) {
+        tog.css('border-right-color', bg);
+    }).click(function (ev) {
+        if (bod.hasClass('wide')) {
+            bod.removeClass('wide');
+            bod.css('margin-left', wid_old);
+            bar.css('width', wid_old);
+            bar.show();
+            set_state('visible');
+        } else {
+            set_state('hidden');
+            bar.hide();
+            bar.css('width', '0px');
+            bod.css('margin-left', wid_new);
+            bod.addClass('wide');
+        }
+        resize();
+    });
+    
+    /* Hide the normally visible sidebar? */
+    if (get_state() === 'hidden') {
+        tog.trigger('click');
+    } else {
+        set_state('visible');
+    }
+});
+    </script>
+  </body>
+</html>
